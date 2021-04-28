@@ -7,6 +7,8 @@ $(document).ready(()=>{
   // Get the online users from the server
   socket.emit('get online users');
 
+  socket.emit('get all channels')
+
   //Each user should be in the general channel by default.
   socket.emit('user changed channel', "General");
 
@@ -78,6 +80,12 @@ $(document).ready(()=>{
     //Our usernames are keys in the object of onlineUsers.
     for(username in onlineUsers){
       $('.users-online').append(`<div class="user-online">${username}</div>`);
+    }
+  })
+
+  socket.on('get all channels', (channels) => {
+    for(channel in channels){
+      $('.channels').append(`<div class="channel">${channel}</div>`);
     }
   })
 
